@@ -1,0 +1,36 @@
+<div class="ui menu">
+  <a class="header item" href="{{url_for('home')}}">
+    Home
+  </a>
+  <!--<a href="{{url_for('topNewItem')}}" class="header item">
+    Recently Added 
+  </a>-->
+  <a href="{{url_for('authorlist')}}" class="header item">
+    Authors
+  </a>
+  <div class="right ui menu">
+    <!--<div class="item">
+      <div class="ui icon input">
+        <input type="text" placeholder="Search...">
+        <i class="search link icon"></i>
+      </div>
+    </div>-->
+    <div class="item">
+      {% if 'username' not in session %}
+        <a href="{{url_for('showLogin')}}" class="ui primary button">Log-in</a>
+      {% else %}
+        {% if session['provider'] == 'google' %}
+          <a href="{{url_for('gdisconnect')}}" class="ui primary button">Log-out</a>
+        {% else %}
+          <a href="{{url_for('fbdisconnect')}}" class="ui primary button">Log-out</a>
+        {% endif %}
+        
+      {% endif %}
+    </div>
+    {% if 'username' in session %}
+      <div class="item">
+        <img class="ui avatar image" src="{{session['picture']}}">
+      </div>
+    {% endif %}
+  </div>
+</div>

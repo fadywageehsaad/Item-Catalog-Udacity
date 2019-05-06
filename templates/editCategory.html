@@ -1,0 +1,23 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "headers.html" %}
+
+<div class = 'ui card centered grid'>
+<div class="content">
+    <div class="header">Edit Item {{category.name}}</div>
+</div>
+
+<div class = 'content'>
+<form class='ui form' action="{{url_for('editCategory', category_id = category.id)}}" method = 'POST'>
+    <div class="field">
+        <label>Name</label>
+        <input type='text' size='250' name='name' placeholder='{{category.name}}'>
+        <label>Image Link</label>
+        <input type='text' size='250' name='img' placeholder='{{category.img}}'>
+    </div>
+    <button class="ui button" type="submit">Edit Category Name</button>
+</form>
+
+</form>
+<a class="ui button" href='{{url_for('home')}}'>Cancel</a>
+{% endblock %}

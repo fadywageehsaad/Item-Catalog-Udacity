@@ -1,0 +1,25 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "headers.html" %}
+<div class = 'ui card centered grid'>
+<div class="content">
+    <div class="header">New Item</div>
+</div>
+
+
+<div class = 'content'>
+<form class='ui form' action="{{url_for('newItemList', category_id = category_id)}}" method = 'POST'>
+    <div class="field">
+        <label>Name</label>
+        <input type='text' size='250' name='name'>
+    </div>
+    <div class="field">
+        <label>Description</label>
+        <input type='text' size='250' name='description'>
+    </div>
+    <button class="ui button" type="submit">Create New Item</button>
+</form>
+<a class="ui button" href='{{url_for('home')}}'>Cancel</a>
+</div>
+</div>
+{% endblock %}

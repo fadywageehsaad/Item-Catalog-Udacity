@@ -1,0 +1,37 @@
+{% extends 'main.html' %}
+{% block content %}
+{% include "headers.html" %}
+<div class = 'ui centered header'>
+
+    <h2>Author List</h2>
+</div>
+
+</br>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  
+    {% for category, message in messages %}
+    <div class='ui {{ category }} message'>
+      <p>{{ message }}</p>
+    </div>
+    {% endfor %}   
+  
+  {% endif %}
+{% endwith %}
+{% if authors %}
+<div class='content'>
+    {% for author in authors %}
+        <div class = 'one column centered grid ui card grid'>
+            <div class="content">
+                <div class="header">{{author.name}}</div>
+            </div>
+            <div class="meta">
+              <span>Email: {{author.email}}</span>
+            </div>
+            
+        </div>
+    {% endfor %}
+</div>
+{% endif %}        
+
+{% endblock  %}

@@ -1,0 +1,50 @@
+{% extends 'main.html' %}
+{% block content %}
+{% include "headers.html" %}
+<div class = 'ui centered header'>
+
+    <h2>Categories</h2>
+    {% if 'username' in session %}
+      <a href="{{url_for('newCategory')}}">Create New Category</a>
+    {% endif %}
+</div>
+
+</br>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  
+    {% for category, message in messages %}
+    <div class='ui {{ category }} message'>
+      <p>{{ message }}</p>
+    </div>
+    {% endfor %}   
+  
+  {% endif %}
+{% endwith %}
+{% if categories %}
+<div class='content'>
+    {% for category in categories %}
+        <div class = 'one column centered grid ui card grid'>
+            <div class="image" href="{{url_for('itemlist', category_id = category.id)}}">
+              <img src="{{category.img}}">
+            </div>
+            <div class="content">
+                <a href="{{url_for('itemlist', category_id = category.id)}}" class="header">{{category.name}}</a>
+            </div>
+            <div class="meta">
+              <span>Author: {{category.user.name}}</span>
+            </div>
+            {% if session['email'] ==  category.user.email %}
+            <div class="extra content">
+              <div class="ui two buttons">
+                <a href="{{url_for('editCategory', category_id = category.id)}}" class="ui basic green button">Edit</a>
+                <a href="{{url_for('deleteCategory', category_id = category.id)}}" class="ui basic red button">Delete</a>
+              </div>
+            </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+{% endif %}        
+
+{% endblock  %}

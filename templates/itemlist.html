@@ -1,0 +1,54 @@
+{% extends 'main.html' %}
+{% block content %}
+{% include "headers.html" %}
+<div class="ui centered header">
+<h2 class="">Item List</h2>
+{% if 'username' in session %}
+    <a href="{{url_for('newItemList', category_id = category_id)}}">Create New Item</a>
+{% endif %}
+</div>
+</br>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  
+    {% for category, message in messages %}
+    <div class='ui {{ category }} message'>
+      <p>{{ message }}</p>
+    </div>
+    {% endfor %}   
+  
+  {% endif %}
+{% endwith %}
+{% if itemlist %}
+<div class='content'>
+    {% for item in itemlist %}
+        <div class = 'one column centered grid ui card grid'>
+            <div class="content">
+                <div class="header">{{item.name}}</div>
+            </div>
+            <div class="meta">
+              <span>Author: {{item.user.name}}</span>
+            </div>
+            <h4 class="ui sub header">{{item.category.name}}</h4>
+            <div class="event">
+                <div class="content">
+                    <div class="summary">
+                        <p>{{item.description}}</p>
+                    </div>
+                </div>
+            </div>   
+            {% if session['email'] ==  item.category.user.email %}
+                <div class="extra content">
+                    <div class="ui large transparent left icon input">
+                        <a href="{{url_for('editItemList', item_id = item.id, category_id = item.category_id)}}">Edit</a>
+                    </div>
+                    <div class="ui large transparent left icon input">
+                        <a href="{{url_for('deleteItemList', item_id = item.id, category_id = item.category_id)}}">Delete</a>
+                    </div>
+                </div>  
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+{% endif %}        
+{% endblock  %}
